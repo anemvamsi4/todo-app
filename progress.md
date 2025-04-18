@@ -34,7 +34,7 @@
 - [x] Set up the React app with TypeScript.
 - [x] Create components:
   - [x] Task list.
-  - [ ] Add/Edit task form.
+  - [x] Add/Edit task form.
   - [ ] Daily check-in feature.
 - [ ] Integrate the frontend with the backend APIs.
 
