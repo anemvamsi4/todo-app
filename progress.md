@@ -35,8 +35,8 @@
 - [x] Create components:
   - [x] Task list.
   - [x] Add/Edit task form.
-  - [ ] Daily check-in feature.
-- [ ] Integrate the frontend with the backend APIs.
+  - [x] Daily check-in feature.
+- [x] Integrate the frontend with the backend APIs.
 
 ## 6. Add Daily Task Check-ins
 - [x] Implement a feature to mark tasks as complete or in progress.

@@ -30,7 +30,9 @@ const TaskList: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchTasks();
+    axios.get('http://localhost:5000/tasks')
+      .then((response) => setTasks(response.data))
+      .catch((error) => console.error('Error fetching tasks:', error));
   }, []);
 
   const handleAddTask = () => {
