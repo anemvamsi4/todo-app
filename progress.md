@@ -23,17 +23,17 @@
 
 ## 4. Build the Backend
 - [x] Set up a simple backend using Node.js and Express.js.
-- [ ] Create RESTful APIs:
-  - [ ] Add a task.
-  - [ ] Fetch tasks for a specific day.
-  - [ ] Update task details.
-  - [ ] Delete a task.
+- [x] Create RESTful APIs:
+  - [x] Add a task.
+  - [x] Fetch tasks for a specific day.
+  - [x] Update task details.
+  - [x] Delete a task.
 - [ ] Use a database (e.g., MongoDB or SQLite).
 
 ## 5. Implement the Frontend
-- [ ] Set up the React app with TypeScript.
-- [ ] Create components:
-  - [ ] Task list.
+- [x] Set up the React app with TypeScript.
+- [x] Create components:
+  - [x] Task list.
   - [ ] Add/Edit task form.
   - [ ] Daily check-in feature.
 - [ ] Integrate the frontend with the backend APIs.
