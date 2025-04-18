@@ -9,6 +9,10 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
+});
+
 // Add a task
 app.post('/tasks', (req, res) => {
   const { name, description } = req.body;
