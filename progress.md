@@ -39,7 +39,7 @@
 - [ ] Integrate the frontend with the backend APIs.
 
 ## 6. Add Daily Task Check-ins
-- [ ] Implement a feature to mark tasks as complete or in progress.
+- [x] Implement a feature to mark tasks as complete or in progress.
 - [ ] Display progress for the day.
 
 ## 7. Testing

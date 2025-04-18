@@ -39,6 +39,18 @@ app.put('/tasks/:id', (req, res) => {
   }
 });
 
+// Toggle task completion
+app.patch('/tasks/:id/toggle', (req, res) => {
+  const { id } = req.params;
+  const task = tasks.find((task) => task.id === parseInt(id));
+  if (task) {
+    task.completed = !task.completed;
+    res.json(task);
+  } else {
+    res.status(404).json({ message: 'Task not found' });
+  }
+});
+
 // Delete a task
 app.delete('/tasks/:id', (req, res) => {
   const { id } = req.params;

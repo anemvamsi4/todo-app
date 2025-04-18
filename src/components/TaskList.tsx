@@ -20,6 +20,15 @@ const TaskList: React.FC = () => {
       .catch((error) => console.error('Error fetching tasks:', error));
   };
 
+  const toggleTaskCompletion = async (id: number) => {
+    try {
+      await axios.patch(`http://localhost:5000/tasks/${id}/toggle`);
+      fetchTasks(); // Refresh the task list
+    } catch (error) {
+      console.error('Error toggling task completion:', error);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -59,6 +68,14 @@ const TaskList: React.FC = () => {
               className="text-blue-500 hover:underline mr-2"
             >
               Edit
+            </button>
+            <button
+              onClick={() => toggleTaskCompletion(task.id)}
+              className={`text-sm px-2 py-1 rounded ${
+                task.completed ? 'bg-red-500 text-white' : 'bg-green-500 text-white'
+              }`}
+            >
+              {task.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
             </button>
           </li>
         ))}
