@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const db = require('./db');
 const app = express();
 const PORT = 5000;
 
@@ -7,55 +8,70 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// In-memory task storage (for now)
-let tasks = [];
-
 // Routes
 // Add a task
 app.post('/tasks', (req, res) => {
   const { name, description } = req.body;
-  const newTask = { id: tasks.length + 1, name, description, completed: false };
-  tasks.push(newTask);
-  res.status(201).json(newTask);
+  const query = `INSERT INTO tasks (name, description) VALUES (?, ?)`;
+  db.run(query, [name, description], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ id: this.lastID, name, description, completed: 0 });
+    }
+  });
 });
 
-// Fetch tasks for a specific day (mocked for now)
+// Fetch all tasks
 app.get('/tasks', (req, res) => {
-  res.json(tasks);
+  const query = `SELECT * FROM tasks`;
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json(rows);
+    }
+  });
 });
 
-// Update task details
+// Update a task
 app.put('/tasks/:id', (req, res) => {
   const { id } = req.params;
   const { name, description, completed } = req.body;
-  const task = tasks.find((task) => task.id === parseInt(id));
-  if (task) {
-    task.name = name || task.name;
-    task.description = description || task.description;
-    task.completed = completed !== undefined ? completed : task.completed;
-    res.json(task);
-  } else {
-    res.status(404).json({ message: 'Task not found' });
-  }
-});
-
-// Toggle task completion
-app.patch('/tasks/:id/toggle', (req, res) => {
-  const { id } = req.params;
-  const task = tasks.find((task) => task.id === parseInt(id));
-  if (task) {
-    task.completed = !task.completed;
-    res.json(task);
-  } else {
-    res.status(404).json({ message: 'Task not found' });
-  }
+  const query = `UPDATE tasks SET name = ?, description = ?, completed = ? WHERE id = ?`;
+  db.run(query, [name, description, completed, id], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json({ message: 'Task updated successfully' });
+    }
+  });
 });
 
 // Delete a task
 app.delete('/tasks/:id', (req, res) => {
   const { id } = req.params;
-  tasks = tasks.filter((task) => task.id !== parseInt(id));
-  res.status(204).send();
+  const query = `DELETE FROM tasks WHERE id = ?`;
+  db.run(query, [id], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(204).send();
+    }
+  });
+});
+
+// Toggle task completion
+app.patch('/tasks/:id/toggle', (req, res) => {
+  const { id } = req.params;
+  const query = `UPDATE tasks SET completed = NOT completed WHERE id = ?`;
+  db.run(query, [id], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json({ message: 'Task completion toggled successfully' });
+    }
+  });
 });
 
 // Start the server

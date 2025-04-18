@@ -28,7 +28,7 @@
   - [x] Fetch tasks for a specific day.
   - [x] Update task details.
   - [x] Delete a task.
-- [ ] Use a database (e.g., MongoDB or SQLite).
+- [x] Use a database (e.g., MongoDB or SQLite).
 
 ## 5. Implement the Frontend
 - [x] Set up the React app with TypeScript.
